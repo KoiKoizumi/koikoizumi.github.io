@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 语义缺失</title>
+    <style>
+        :root {
+            --primary: #4ECDC4;
+            --secondary: #556270;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: #f0f7fa;
+            color: #2c3e50;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .error-code::before {
+            content: "404";
+            position: absolute;
+            color: rgba(78, 205, 196, 0.1);
+            font-size: 12rem;
+            top: -50px;
+            left: -40px;
+            z-index: -1;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            max-width: 600px;
+            font-weight: 400;
+        }
+        .explanation {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            max-width: 600px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            text-align: left;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        .diagram {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .diagram-item {
+            padding: 15px;
+            border: 2px dashed var(--primary);
+            border-radius: 8px;
+            min-width: 120px;
+        }
+        .home-link {
+            margin-top: 30px;
+        }
+        .home-link a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--primary);
+            padding-bottom: 2px;
+            font-size: 1.1rem;
+        }
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .lang-switcher button {
+            background: rgba(255,255,255,0.7);
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            padding: 5px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .error-code { font-size: 5rem; }
+            .error-code::before { font-size: 8rem; top: -30px; }
+            h1 { font-size: 1.5rem; }
+            .explanation { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p>语义解构实验室 · 样本 #404</p>
+    </div>
+    
+    <div class="lang-switcher">
+        <button onclick="switchLang('zh')">中文</button>
+        <button onclick="switchLang('en')">EN</button>
+        <button onclick="switchLang('ja')">日本語</button>
+    </div>
+
+    <div class="error-code">404</div>
+    <h1 id="title">语义单元缺失</h1>
+    
+    <div class="explanation">
+        <p id="description">在当前的符号链中检测到断裂点。可能原因：</p>
+        <ul id="reasons">
+            <li>能指与所指关联失效</li>
+            <li>跨文化语义传输损耗</li>
+            <li>数字符号意外坍缩</li>
+        </ul>
+        
+        <div class="diagram">
+            <div class="diagram-item">用户意图</div>
+            <div>→</div>
+            <div class="diagram-item" style="border-color:#e74c3c; color:#e74c3c">404断层</div>
+            <div>→</div>
+            <div class="diagram-item">目标语义</div>
+        </div>
+    </div>
+    
+    <div class="home-link">
+        <a href="/" id="home-link">返回语义中心</a>
+    </div>
+
+    <script>
+        const translations = {
+            zh: {
+                title: "语义单元缺失",
+                description: "在当前的符号链中检测到断裂点。可能原因：",
+                reasons: [
+                    "能指与所指关联失效",
+                    "跨文化语义传输损耗",
+                    "数字符号意外坍缩"
+                ],
+                homeLink: "返回语义中心"
+            },
+            en: {
+                title: "Semantic Unit Missing",
+                description: "A fracture point detected in the current semiotic chain. Possible causes:",
+                reasons: [
+                    "Signifier-signified relation failure",
+                    "Cross-cultural semantic transmission loss",
+                    "Digital symbol collapse"
+                ],
+                homeLink: "Back to Semantic Hub"
+            },
+            ja: {
+                title: "意味ユニット欠落",
+                description: "現在の記号連鎖に断裂点を検出しました。原因として考えられるもの：",
+                reasons: [
+                    "シニフィアンとシニフィエの関連性消失",
+                    "異文化間意味伝送の損失",
+                    "デジタル記号の崩壊"
+                ],
+                homeLink: "意味センターに戻る"
+            }
+        };
+
+        function switchLang(lang) {
+            document.getElementById('title').textContent = translations[lang].title;
+            document.getElementById('description').textContent = translations[lang].description;
+            
+            const reasonsList = document.getElementById('reasons');
+            reasonsList.innerHTML = '';
+            translations[lang].reasons.forEach(reason => {
+                const li = document.createElement('li');
+                li.textContent = reason;
+                reasonsList.appendChild(li);
+            });
+            
+            document.getElementById('home-link').textContent = translations[lang].homeLink;
+        }
+    </script>
+</body>
+</html>
