@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lolita.mom</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #0d47a1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+        }
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 0;
+        }
+        .lang-switcher button {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(13, 71, 161, 0.2);
+            border-radius: 16px;
+            color: #0d47a1;
+            padding: 5px 12px;
+            margin: 0 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .lang-switcher button.active {
+            background: #64b5f6;
+            color: #fff;
+            font-weight: bold;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+        .domain {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            letter-spacing: -1.5px;
+            color: #1565c0;
+            text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.5);
+        }
+        .tagline {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+        .description {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            backdrop-filter: blur(5px);
+            max-width: 600px;
+        }
+        .footer {
+            padding: 25px 0;
+            color: rgba(13, 71, 161, 0.7);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(13, 71, 161, 0.1);
+        }
+        @media (max-width: 768px) {
+            .domain { font-size: 2.5rem; }
+            .tagline { font-size: 1.4rem; }
+        }
+        .emoji { font-size: 3rem; margin-bottom: 20px; }
+        .warning {
+            background: rgba(255, 245, 157, 0.5);
+            border-left: 4px solid #ffd600;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="lang-switcher">
+            <button onclick="switchLang('zh')" class="active">中文</button>
+            <button onclick="switchLang('en')">EN</button>
+            <button onclick="switchLang('ja')">日本語</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="emoji">📚</div>
+        <div class="domain">lolita.mom</div>
+        <div class="tagline" id="tagline">词汇语义的社会学解构</div>
+        <div class="description" id="description">
+            本域名是香港城市大学语言学与符号学研究项目的一部分，旨在探讨词汇在数字时代的语义流变与文化负载。纯学术性质的概念艺术，无具体指涉对象。
+            <div class="warning" id="warning">
+                注意：本页面仅为学术研究项目，不涉及任何现实关联内容
+            </div>
+        </div>
+    </div>
+
+    <div class="footer" id="footer">
+        <p>WHOIS隐私保护已启用 · 学术研究用途 · © 2025</p>
+    </div>
+
+    <script>
+        const translations = {
+            zh: {
+                tagline: "词汇语义的社会学解构",
+                description: "本域名是香港城市大学语言学与符号学研究项目的一部分，旨在探讨词汇在数字时代的语义流变与文化负载。纯学术性质的概念艺术，无具体指涉对象。",
+                warning: "注意：本页面仅为学术研究项目，不涉及任何现实关联内容",
+                footer: "WHOIS隐私保护已启用 · 学术研究用途 · © 2025"
+            },
+            en: {
+                tagline: "Sociological Deconstruction of Semantics",
+                description: "This domain is part of City University of Hong Kong's linguistics and semiotics research project, examining the semantic evolution and cultural connotations of vocabulary in the digital age. Purely academic conceptual art with no specific references.",
+                warning: "Note: This is solely an academic research project without real-world associations",
+                footer: "WHOIS Privacy Enabled · Academic Research · © 2025"
+            },
+            ja: {
+                tagline: "語彙意味論の社会学的解構",
+                description: "本ドメインは香港城市大学言語学・記号学研究プロジェクトの一部であり、デジタル時代における語彙の意味論的変遷と文化的負荷を探求するものです。具体的な指示対象を持たない純粋に学術的な概念芸術です。",
+                warning: "注意：本ページは学術研究プロジェクトのみを目的としており、現実の関連内容には関与しません",
+                footer: "WHOISプライバシー保護有効 · 学術研究目的 · © 2025"
+            }
+        };
+
+        function switchLang(lang) {
+            document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            document.getElementById('tagline').textContent = translations[lang].tagline;
+            document.getElementById('description').innerHTML = translations[lang].description + 
+                `<div class="warning">${translations[lang].warning}</div>`;
+            document.getElementById('footer').innerHTML = `<p>${translations[lang].footer}</p>`;
+        }
+    </script>
+</body>
+</html>
